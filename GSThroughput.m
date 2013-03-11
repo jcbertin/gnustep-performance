@@ -1019,8 +1019,8 @@ typedef struct {
 
 - (void) startDuration: (NSString*)name
 {
-  NSAssert(my->supportDurations == YES && my->started == 0.0,
-    NSInternalInconsistencyException);
+  NSAssert1(my->supportDurations == YES && my->started == 0.0,
+    @"%@", NSInternalInconsistencyException);
   if (my->event != nil)
     {
       [NSException raise: NSInternalInconsistencyException

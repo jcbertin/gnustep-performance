@@ -125,7 +125,8 @@ static Class	concreteClass = 0;
     [NSNumber numberWithUnsignedInt: l->count], @"Count",
     self, @"Array", nil, nil];
 
-  reason = [NSString stringWithFormat: @"Index %d is out of range %d (in '%@')",    index, l->count, NSStringFromSelector(sel)];
+  reason = [NSString stringWithFormat: @"Index %lu is out of range %d (in '%@')",
+		     (unsigned long)index, l->count, NSStringFromSelector(sel)];
 
   exception = [NSException exceptionWithName: NSRangeException
                                       reason: reason
@@ -276,15 +277,16 @@ static Class	concreteClass = 0;
 	      foo = [[NSMutableString alloc] init];
 	      [foo appendString:
 		[NSString stringWithFormat:
-		  @"\"%p\" [label = \"%p%@ |{ <delta%i> %i | <forward%i> }",
-		  p, p, p == l->header ? @"(HEADER)" : @"", k,
-		  p->forward[k].delta, k]];
+		  @"\"%p\" [label = \"%p%@ |{ <delta%lu> %i | <forward%lu> }",
+		  p, p, p == l->header ? @"(HEADER)" : @"",
+		  (unsigned long)k, p->forward[k].delta,
+		  (unsigned long)k]];
 	      if (p != GSISLNil)
 	        [edges addObject:
 		  [NSString stringWithFormat:
-		    @"\"%p\": forward%i -> \"%p\": delta%i;\n",
-		    p, k, p->forward[k].next,
-		    p->forward[k].next == GSISLNil ? 0 : k]];
+		    @"\"%p\": forward%lu -> \"%p\": delta%lu;\n",
+		    p, (unsigned long)k, p->forward[k].next,
+		    p->forward[k].next == GSISLNil ? 0ul : (unsigned long)k]];
 	      [values setObject: foo forKey: value];
 	      [foo release];
 	    }
@@ -292,14 +294,15 @@ static Class	concreteClass = 0;
 	    {
 	      [foo appendString:
 		[NSString stringWithFormat:
-		  @"|{ <delta%i> %i | <forward%i> }",
-		  k, p->forward[k].delta, k]];
+		  @"|{ <delta%lu> %i | <forward%lu> }",
+		  (unsigned long)k, p->forward[k].delta,
+		  (unsigned long)k]];
 	      if (p != GSISLNil)
 	        [edges addObject:
 		  [NSString stringWithFormat:
-		    @"\"%p\": forward%i -> \"%p\": delta%i;\n",
-		    p, k, p->forward[k].next,
-		    p->forward[k].next == GSISLNil ? 0 : k]];
+		    @"\"%p\": forward%lu -> \"%p\": delta%lu;\n",
+		    p, (unsigned long)k, p->forward[k].next,
+		    p->forward[k].next == GSISLNil ? 0ul : (unsigned long)k]];
 	      [values setObject: foo forKey: value];
 	    }
 	}
