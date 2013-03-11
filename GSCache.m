@@ -901,6 +901,8 @@ static void removeItem(GSCacheItem *item, GSCacheItem **first)
 
 #if	defined(GNUSTEP_BASE_LIBRARY)
 
+#define EXPOSE_GSMimeDocument_IVARS
+#define EXPOSE_GSMimeHeader_IVARS
 #import	<GNUstepBase/GSMime.h>
 
 @implementation	GSMimeDocument (GSCacheSizeInBytes)
